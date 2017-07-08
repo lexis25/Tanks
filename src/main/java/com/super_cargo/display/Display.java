@@ -72,4 +72,8 @@ public abstract class Display {
         g.drawImage(buffer, 0,0, null);
         bufferStrategy.show();
     }
+
+    public static void setTitle(String title){
+        window.setTitle(title);
+    }
 }
