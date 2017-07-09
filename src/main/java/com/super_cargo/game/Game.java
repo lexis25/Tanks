@@ -1,9 +1,12 @@
 package com.super_cargo.game;
 
+import com.super_cargo.IO.Input;
 import com.super_cargo.display.Display;
+import com.super_cargo.graphics.TextureAtlas;
 import com.super_cargo.utils.Time;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class Game implements Runnable {
 
@@ -17,21 +20,29 @@ public class Game implements Runnable {
     public static final float UPDATE_INTERVAL = Time.SECOND / UPDATE_RATE;
     public static final long IDLE_TIME = 1;
 
+    public static final String ATLAS_FILE_NAME = "texture_atlas.png";
+
     private boolean running;
     private Thread gameThread;
     private Graphics2D graphics2D;
+    private Input input;
+    private TextureAtlas atlas;
 
     //tmp
     float x = 350;
     float y = 250;
     float radius = 50;
     float delta =  0;
+    float speed = 3;
     //tmp end
 
     public Game() {
         running = false;
         Display.create(WIDTH, HEIGHT, TITLE, CLEAR_COLOR, NUM_BUFFERS);
         graphics2D = Display.getGraphics();
+        input = new Input();
+        Display.addInputListener(input);
+        atlas = new TextureAtlas(ATLAS_FILE_NAME);
     }
 
     public synchronized void start() {
@@ -59,13 +70,28 @@ public class Game implements Runnable {
     }
 
     private void update() {
-        delta += 0.02f;
+        if(input.getKey(KeyEvent.VK_UP)){
+            y -= speed;
+        }
+
+        if(input.getKey(KeyEvent.VK_DOWN)){
+            y += speed;
+        }
+
+        if(input.getKey(KeyEvent.VK_LEFT)){
+            x -= speed;
+        }
+
+        if(input.getKey(KeyEvent.VK_RIGHT)){
+            x += speed;
+        }
     }
 
     private void render() {
         Display.clear();
         graphics2D.setColor(Color.WHITE);
-        graphics2D.fillOval((int) (x  + Math.sin(delta) * 200),(int)y,(int)radius * 2,(int) radius * 2);
+        graphics2D.drawImage(atlas.cut(0,0,32,32),300,300,null);
+        //graphics2D.fillOval((int) (x  + Math.sin(delta) * 200),(int)y,(int)radius * 2,(int) radius * 2);
         Display.swapBuffers();
 
     }
