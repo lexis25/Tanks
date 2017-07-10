@@ -2,6 +2,8 @@ package com.super_cargo.game;
 
 import com.super_cargo.IO.Input;
 import com.super_cargo.display.Display;
+import com.super_cargo.graphics.Sprite;
+import com.super_cargo.graphics.SpriteSheet;
 import com.super_cargo.graphics.TextureAtlas;
 import com.super_cargo.utils.Time;
 
@@ -27,12 +29,14 @@ public class Game implements Runnable {
     private Graphics2D graphics2D;
     private Input input;
     private TextureAtlas atlas;
+    private SpriteSheet sheet;
+    private Sprite sprite;
 
     //tmp
     float x = 350;
     float y = 250;
     float radius = 50;
-    float delta =  0;
+    float delta = 0;
     float speed = 3;
     //tmp end
 
@@ -43,6 +47,8 @@ public class Game implements Runnable {
         input = new Input();
         Display.addInputListener(input);
         atlas = new TextureAtlas(ATLAS_FILE_NAME);
+        sheet = new SpriteSheet(atlas.cut(1 * 16, 9 * 16, 16 , 16),2,16);
+        sprite = new Sprite(sheet,1);
     }
 
     public synchronized void start() {
@@ -70,28 +76,26 @@ public class Game implements Runnable {
     }
 
     private void update() {
-        if(input.getKey(KeyEvent.VK_UP)){
+        if (input.getKey(KeyEvent.VK_UP)) {
             y -= speed;
         }
 
-        if(input.getKey(KeyEvent.VK_DOWN)){
+        if (input.getKey(KeyEvent.VK_DOWN)) {
             y += speed;
         }
 
-        if(input.getKey(KeyEvent.VK_LEFT)){
+        if (input.getKey(KeyEvent.VK_LEFT)) {
             x -= speed;
         }
 
-        if(input.getKey(KeyEvent.VK_RIGHT)){
+        if (input.getKey(KeyEvent.VK_RIGHT)) {
             x += speed;
         }
     }
 
     private void render() {
         Display.clear();
-        graphics2D.setColor(Color.WHITE);
-        graphics2D.drawImage(atlas.cut(0,0,32,32),300,300,null);
-        //graphics2D.fillOval((int) (x  + Math.sin(delta) * 200),(int)y,(int)radius * 2,(int) radius * 2);
+        sprite.render(graphics2D,x,y);
         Display.swapBuffers();
 
     }
