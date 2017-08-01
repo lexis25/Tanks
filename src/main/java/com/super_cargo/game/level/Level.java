@@ -46,10 +46,8 @@ public class Level {
         for (int i = 0; i < tileMap.length; i++) {
             for (int j = 0; j < tileMap[i].length; j++) {
                 Tile tile = tiles.get(TileType.fromNumeric(tileMap[i][j]));
-                if (tile.type() != TileType.GRASS)
-                    grassCords.add(new Point(j * SCALED_TILE_SIZE,i * SCALED_TILE_SIZE));
             }
-            }
+        }
 
     }
 
@@ -69,8 +67,8 @@ public class Level {
     }
 
     public void renderGrass(Graphics2D g) {
-        for(Point p : grassCords) {
-            tiles.get(TileType.GRASS).render(g,p.x,p.y);
+        for (Point p : grassCords) {
+            tiles.get(TileType.GRASS).render(g, p.x, p.y);
         }
 
     }

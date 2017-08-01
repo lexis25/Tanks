@@ -1,12 +1,12 @@
 package com.super_cargo.game;
 
 import com.super_cargo.IO.Input;
-
-import java.awt.*;
+import java.awt.Graphics2D;
 
 public abstract class Entity {
 
     public final EntityType type;
+
     protected float x;
     protected float y;
 
