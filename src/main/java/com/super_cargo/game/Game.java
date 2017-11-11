@@ -2,6 +2,7 @@ package com.super_cargo.game;
 
 import com.super_cargo.IO.Input;
 import com.super_cargo.display.Display;
+import com.super_cargo.game.level.Level;
 import com.super_cargo.graphics.TextureAtlas;
 import com.super_cargo.utils.Time;
 
@@ -9,24 +10,26 @@ import java.awt.Graphics2D;
 
 public class Game implements Runnable {
 
-    public static final int		WIDTH			= 800;
-    public static final int		HEIGHT			= 600;
-    public static final String	TITLE			= "Tanks";
-    public static final int		CLEAR_COLOR		= 0xff000000;
-    public static final int		NUM_BUFFERS		= 3;
+    public static final int WIDTH = 800;
+    public static final int HEIGHT = 600;
+    public static final String TITLE = "Tanks";
+    public static final int CLEAR_COLOR = 0xff000000;
+    public static final int NUM_BUFFERS = 3;
 
-    public static final float	UPDATE_RATE		= 60.0f;
-    public static final float	UPDATE_INTERVAL	= Time.SECOND / UPDATE_RATE;
-    public static final long	IDLE_TIME		= 1;
+    public static final float UPDATE_RATE = 60.0f;
+    public static final float UPDATE_INTERVAL = Time.SECOND / UPDATE_RATE;
+    public static final long IDLE_TIME = 1;
 
-    public static final String	ATLAS_FILE_NAME	= "texture_atlas.png";
+    public static final String ATLAS_FILE_NAME = "texture_atlas.png";
 
-    private boolean				running;
-    private Thread				gameThread;
-    private Graphics2D			graphics;
-    private Input				input;
-    private TextureAtlas		atlas;
-    private Player				player;
+    private boolean running;
+    private Thread gameThread;
+    private Graphics2D graphics;
+    private Input input;
+    private TextureAtlas atlas;
+    private Player player;
+    private Level level;
+
 
     public Game() {
         running = false;
@@ -35,7 +38,9 @@ public class Game implements Runnable {
         input = new Input();
         Display.addInputListener(input);
         atlas = new TextureAtlas(ATLAS_FILE_NAME);
-        player = new Player(300, 300, 2, 4, atlas);
+        player = new Player(300, 300, 2, 3, atlas);
+        level = new Level(atlas);
+
     }
 
     public synchronized void start() {
@@ -68,10 +73,12 @@ public class Game implements Runnable {
 
     private void update() {
         player.update(input);
+        level.update();
     }
 
     private void render() {
         Display.clear();
+        level.render(graphics);
         player.render(graphics);
         Display.swapBuffers();
     }

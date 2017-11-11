@@ -1,7 +1,5 @@
 package com.super_cargo.game.level;
 
-import com.super_cargo.graphics.Sprite;
-import com.super_cargo.graphics.SpriteSheet;
 import com.super_cargo.utils.Utils;
 
 import java.awt.*;

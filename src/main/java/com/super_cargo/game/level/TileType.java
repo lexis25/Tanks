@@ -1,7 +1,5 @@
 package com.super_cargo.game.level;
 
-import java.util.Map;
-
 public enum TileType {
 
     EMPTY(0), BRICK(1), METAL(2), WATER(3), GRASS(4), ICE(5);

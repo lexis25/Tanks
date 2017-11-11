@@ -20,8 +20,7 @@ public class Sprite {
 
     public void render(Graphics2D graphics2D, float x, float y) {
 
-        BufferedImage image = sheet.getSprite(0);
-        graphics2D.drawImage(image, (int) (x), (int) (y), (int) (image.getWidth() * scale), (int) (image.getHeight() * scale), null);
+        graphics2D.drawImage(image, (int) (x), (int) (y),  null);
 
     }
 

@@ -19,13 +19,12 @@ public class Level {
     public static final int TILES_IN_WIDTH = Game.WIDTH / SCALED_TILE_SIZE;
     public static final int TILES_IN_HEIGHT = Game.WIDTH / SCALED_TILE_SIZE;
 
-    private Integer[][] tileMap;
+    private int [][] tileMap;
     private Map<TileType, Tile> tiles;
-    private List<Point> grassCords;
 
 
     public Level(TextureAtlas atlas) {
-        tileMap = new Integer[TILES_IN_WIDTH][TILES_IN_HEIGHT];
+        tileMap = new int[TILES_IN_WIDTH][TILES_IN_HEIGHT];
         tiles = new HashMap<TileType, Tile>();
 
         tiles.put(TileType.BRICK, new Tile(atlas.cut(32 * TILE_SCALE, 0 * TILE_SCALE, TILE_SCALE, TILE_SCALE),
@@ -41,11 +40,10 @@ public class Level {
         tiles.put(TileType.EMPTY, new Tile(atlas.cut(36 * TILE_SCALE, 6 * TILE_SCALE, TILE_SCALE, TILE_SCALE),
                 TILE_IN_GAME_SCALE, TileType.EMPTY));
 
-        tileMap = Utils.levelParser("res/level.lvl");
-        grassCords = new ArrayList<Point>();
-        for (int i = 0; i < tileMap.length; i++) {
-            for (int j = 0; j < tileMap[i].length; j++) {
-                Tile tile = tiles.get(TileType.fromNumeric(tileMap[i][j]));
+       tileMap = new int[TILES_IN_WIDTH][TILES_IN_HEIGHT];
+        for (int i = 0; i < tileMap.length ; i++) {
+            for (int j = 0; j < tileMap.length; j++) {
+                tileMap[i][j] = TileType.BRICK.numeric();
             }
         }
 
@@ -58,17 +56,8 @@ public class Level {
     public void render(Graphics2D g) {
         for (int i = 0; i < tileMap.length; i++) {
             for (int j = 0; j < tileMap[i].length; j++) {
-                Tile tile = tiles.get(TileType.fromNumeric(tileMap[i][j]));
-                if (tile.type() != TileType.GRASS)
-                    tile.render(g, j * SCALED_TILE_SIZE, i * SCALED_TILE_SIZE);
+                tiles.get(TileType.fromNumeric(tileMap[i][j])).render(g,j * SCALED_TILE_SIZE,i * SCALED_TILE_SIZE);
             }
-        }
-
-    }
-
-    public void renderGrass(Graphics2D g) {
-        for (Point p : grassCords) {
-            tiles.get(TileType.GRASS).render(g, p.x, p.y);
         }
 
     }
