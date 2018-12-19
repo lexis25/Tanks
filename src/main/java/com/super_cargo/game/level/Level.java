@@ -43,7 +43,7 @@ public class Level {
        tileMap = new int[TILES_IN_WIDTH][TILES_IN_HEIGHT];
         for (int i = 0; i < tileMap.length ; i++) {
             for (int j = 0; j < tileMap.length; j++) {
-                tileMap[i][j] = TileType.BRICK.numeric();
+                tileMap[i][j] = TileType.EMPTY.numeric();
             }
         }
 

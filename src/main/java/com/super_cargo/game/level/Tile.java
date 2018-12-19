@@ -10,7 +10,7 @@ public class Tile {
     private BufferedImage image;
     private TileType type;
 
-    protected Tile(BufferedImage image, int scale,TileType type){
+    protected Tile(BufferedImage image, int scale, TileType type){
         this.type = type;
         this.image = Utils.resize(image,image.getWidth() * scale, image.getHeight() * scale);
     }

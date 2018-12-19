@@ -1,10 +1,7 @@
 package com.super_cargo.utils;
 
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,28 +14,21 @@ public class Utils {
         return newImage;
     }
 
-    public static Integer[][] levelParser(String filePath){
-
-        Integer[][]result = null;
+    public static int[][] levelParser(String filePath){
 
         try{
             BufferedReader reader = new BufferedReader(new FileReader(new File(filePath)));
             String line = null;
-            List<Integer[]> levelLines = new ArrayList<Integer[]>();
+            List<Integer[]> lvlLines = new ArrayList<Integer[]>();
             while ((line = reader.readLine()) != null){
-                levelLines.add(str2int_arrays(line.split(" ")));
+                lvlLines.add(str2int_arrays(line.split(" ")));
             }
-            result = new Integer[levelLines.size()][levelLines.get(0).length];
-            for (int i = 0; i < levelLines.size() ; i++) {
-                result[i] = levelLines.get(i);
-            }
+
         }catch (IOException e){
             e.printStackTrace();
         }
 
-
-
-        return result;
+        return null;
     }
 
     public static final Integer[] str2int_arrays(String [] sArr){
