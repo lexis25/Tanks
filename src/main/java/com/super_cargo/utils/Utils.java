@@ -14,7 +14,8 @@ public class Utils {
         return newImage;
     }
 
-    public static int[][] levelParser(String filePath){
+    public static Integer[][] levelParser(String filePath){
+        Integer [][] result = null;
 
         try{
             BufferedReader reader = new BufferedReader(new FileReader(new File(filePath)));
@@ -24,11 +25,16 @@ public class Utils {
                 lvlLines.add(str2int_arrays(line.split(" ")));
             }
 
+            result = new Integer[lvlLines.size()][lvlLines.get(0).length];
+            for (int i = 0; i < lvlLines.size(); i++) {
+                result[i] = lvlLines.get(i);
+            }
+
         }catch (IOException e){
             e.printStackTrace();
         }
 
-        return null;
+        return result;
     }
 
     public static final Integer[] str2int_arrays(String [] sArr){
