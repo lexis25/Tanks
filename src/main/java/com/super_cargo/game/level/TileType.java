@@ -2,7 +2,7 @@ package com.super_cargo.game.level;
 
 public enum TileType {
 
-    EMPTY(0), BRICK(1), METAL(2), WATER(3), GRASS(4), ICE(5);
+    EMPTY(0), BRICK(1), METAL(2), WATER(3), GRASS(4), ICE(5), CLOSED(6);
 
     private int n;
 
@@ -26,6 +26,8 @@ public enum TileType {
                 return GRASS;
             case 5:
                 return ICE;
+            case 6:
+                return CLOSED;
             default:
                 return EMPTY;
         }
