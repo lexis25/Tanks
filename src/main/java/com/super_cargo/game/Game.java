@@ -11,7 +11,8 @@ import java.awt.Graphics2D;
 public class Game implements Runnable {
 
     public static final int WIDTH = 800;
-    public static final int HEIGHT = 600;
+    public static final int HEIGHT = 608;
+    public static final int ACTION_WIDTH = Game.WIDTH - (6 * Player.SPRITE_SCALE);
     public static final String TITLE = "Tanks";
     public static final int CLEAR_COLOR = 0xff000000;
     public static final int NUM_BUFFERS = 3;

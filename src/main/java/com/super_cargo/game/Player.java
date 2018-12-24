@@ -79,8 +79,8 @@ public class Player extends Entity {
 
         if (newX < 0) {
             newX = 0;
-        } else if (newX >= Game.WIDTH - SPRITE_SCALE * scale) {
-            newX = Game.WIDTH - SPRITE_SCALE * scale;
+        } else if (newX >= Game.ACTION_WIDTH - SPRITE_SCALE * scale) {
+            newX = Game.ACTION_WIDTH - SPRITE_SCALE * scale;
         }
 
         if (newY < 0) {
