@@ -2,6 +2,7 @@ package com.super_cargo.game.level;
 
 import com.super_cargo.game.Game;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class EditorLevel {
@@ -18,18 +19,35 @@ public class EditorLevel {
             new Point(36, 25), new Point(36, 26), new Point(37, 25), new Point(37, 26),// player 2
     };
 
-    private int[][] level = new int[Level.TILES_IN_HEIGHT][Level.TILES_IN_WIDTH];
+    private static int[][] field = new int[Level.TILES_IN_HEIGHT][Level.TILES_IN_WIDTH];
 
 
     private void resetLevelEmpty() {
-        for (int i = 0; i < level.length; i++) {
-            for (int j = 0; j < level[i].length - Game.ACTION_WIDTH; j++) {
-                for (int k = 0; k < closed.length; k++) {
-                    if (!(closed[k].x == level[i][j] && closed[k].y == level[i][j])) {
-                        level[i][j] = 0;
-                    }
-                }
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field[i].length - Game.ACTION_WIDTH; j++) {
+                field[i][j] = 0;
             }
         }
+    }
+
+    private void onSaveLevelFile() {
+
+    }
+
+    private void buildUIEditor() {
+        JTextField save = new JTextField("save level");
+        save.setFont(new Font("Arial",Font.BOLD,14));
+
+        JTextField back = new JTextField("back to menu");
+        save.setFont(new Font( "Arial", Font.BOLD, 14));
+
+    }
+
+    private void onFocusIcon() {
+
+    }
+
+    private void setField(int x , int y){
+
     }
 }

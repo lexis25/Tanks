@@ -4,6 +4,9 @@ import com.super_cargo.IO.Input;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -49,6 +52,7 @@ public abstract class Display {
 
             content.createBufferStrategy(numBuffers);
             bufferStrategy = content.getBufferStrategy();
+            addMouseListener();
         }
     }
 
@@ -68,7 +72,6 @@ public abstract class Display {
         }
     }
 
-
     public static void swapBuffers(){
         Graphics g = bufferStrategy.getDrawGraphics();
         g.drawImage(buffer, 0,0, null);
@@ -81,5 +84,15 @@ public abstract class Display {
 
     public static void addInputListener(Input inputListener){
         window.add(inputListener);
+    }
+
+    public static void addMouseListener(){
+        content.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                System.out.println(e.getY() / 16 + " " + e.getX() / 16);
+            }
+        });
     }
 }

@@ -2,7 +2,6 @@ package com.super_cargo.game.level;
 
 import com.super_cargo.game.Game;
 import com.super_cargo.graphics.TextureAtlas;
-import com.super_cargo.utils.MathAdvance;
 import com.super_cargo.utils.Utils;
 
 import java.awt.*;

@@ -47,5 +47,17 @@ public class Utils {
         return result;
     }
 
-
+    private static void writeLevel(String filePath, int [][] levelArray) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(filePath)));
+            for (int i = 0; i < levelArray.length; i++) {
+                for (int j = 0; j < levelArray[i].length; j++) {
+                    writer.write(levelArray[i][j]+" ");
+                }
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
