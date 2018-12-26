@@ -14,14 +14,14 @@ public class Utils {
         return newImage;
     }
 
-    public static Integer[][] levelParser(String filePath){
-        Integer [][] result = null;
+    public static Integer[][] levelParser(String filePath) {
+        Integer[][] result = null;
 
-        try{
+        try {
             BufferedReader reader = new BufferedReader(new FileReader(new File(filePath)));
             String line = null;
             List<Integer[]> lvlLines = new ArrayList<Integer[]>();
-            while ((line = reader.readLine()) != null){
+            while ((line = reader.readLine()) != null) {
                 lvlLines.add(str2int_arrays(line.split(" ")));
             }
 
@@ -30,14 +30,14 @@ public class Utils {
                 result[i] = lvlLines.get(i);
             }
 
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         return result;
     }
 
-    public static final Integer[] str2int_arrays(String [] sArr){
+    public static final Integer[] str2int_arrays(String[] sArr) {
         Integer[] result = new Integer[sArr.length];
 
         for (int i = 0; i < sArr.length; i++) {
@@ -47,12 +47,12 @@ public class Utils {
         return result;
     }
 
-    private static void writeLevel(String filePath, int [][] levelArray) {
+    private static void writeLevel(String filePath, int[][] levelArray) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(new File(filePath)));
             for (int i = 0; i < levelArray.length; i++) {
                 for (int j = 0; j < levelArray[i].length; j++) {
-                    writer.write(levelArray[i][j]+" ");
+                    writer.write(levelArray[i][j] + " ");
                 }
             }
             writer.close();
