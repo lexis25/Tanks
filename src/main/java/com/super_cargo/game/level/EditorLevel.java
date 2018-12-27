@@ -1,9 +1,12 @@
 package com.super_cargo.game.level;
 
 import com.super_cargo.game.Game;
+import com.super_cargo.utils.Utils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
 public class EditorLevel {
@@ -22,6 +25,7 @@ public class EditorLevel {
 
     private static int[][] field = new int[Level.TILES_IN_HEIGHT][Level.TILES_IN_WIDTH];
     private static HashMap<TileType, Point> iconDoc = new HashMap<TileType, Point>();
+    private static int level = 1;
 
     EditorLevel() {
         createRightDoc(44, 0);
@@ -45,19 +49,42 @@ public class EditorLevel {
     }
 
     private void onSaveLevelFile() {
-
+        Utils.writeLevel("res/level_"+ level,field);
+        level++;
     }
 
     private void buildUIEditor() {
+        // two event how to we know whose event work first in stack event, or override
 
         JTextField save = new JTextField("save level");
         save.setFont(new Font("Arial", Font.BOLD, 14));
+        save.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                onSaveLevelFile();
+            }
+        });
 
         JTextField reset = new JTextField("reset");
         reset.setFont(new Font("Arial", Font.BOLD, 14));
+        reset.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                resetLevelEmpty();
+            }
+        });
 
         JTextField back = new JTextField("back to menu");
         save.setFont(new Font("Arial", Font.BOLD, 14));
+        save.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                // back to menu class
+            }
+        });
 
     }
 
