@@ -54,6 +54,7 @@ public class Utils {
                 for (int j = 0; j < levelArray[i].length; j++) {
                     writer.write(levelArray[i][j] + " ");
                 }
+                writer.newLine();
             }
             writer.close();
         } catch (IOException e) {
