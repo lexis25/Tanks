@@ -4,10 +4,9 @@ import com.super_cargo.game.Game;
 import com.super_cargo.graphics.TextureAtlas;
 import com.super_cargo.utils.Utils;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EditorLevel {
 
@@ -25,9 +24,10 @@ public class EditorLevel {
 
     private static int[][] field = new int[Level.TILES_IN_HEIGHT][Level.TILES_IN_WIDTH];
     private static int level = 1;
-    private static TileType tile;
+    private static TileType tileType;
+    private static Map<Point, TileType> buttons;
 
-    EditorLevel(TextureAtlas atlas) {
+    public EditorLevel(TextureAtlas atlas) {
         createRightDoc();
         buildUIEditor(atlas);
     }
@@ -47,45 +47,6 @@ public class EditorLevel {
     }
 
     private void buildUIEditor(TextureAtlas atlas) {
-        // two event how to we know whose event work first in stack event, or override
-
-        JButton brick = new JButton();
-        JButton metal = new JButton();
-        JButton water = new JButton();
-        JButton grass = new JButton();
-        JButton ice = new JButton();
-        JButton empty = new JButton();
-
-
-        JTextField save = new JTextField("save level");
-        save.setFont(new Font("Arial", Font.BOLD, 14));
-        save.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
-                onSaveLevelFile();
-            }
-        });
-
-        JTextField reset = new JTextField("reset");
-        reset.setFont(new Font("Arial", Font.BOLD, 14));
-        reset.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
-                resetLevelEmpty();
-            }
-        });
-
-        JTextField back = new JTextField("back to menu");
-        save.setFont(new Font("Arial", Font.BOLD, 14));
-        save.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
-                // back to menu class
-            }
-        });
 
     }
 
