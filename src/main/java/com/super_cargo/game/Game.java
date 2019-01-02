@@ -41,7 +41,6 @@ public class Game implements Runnable {
         atlas = new TextureAtlas(ATLAS_FILE_NAME);
         player = new Player(300, 300, 2, 3, atlas);
         level = new Level(atlas);
-
     }
 
     public synchronized void start() {

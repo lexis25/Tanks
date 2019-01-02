@@ -5,28 +5,14 @@ import com.super_cargo.game.level.TileType;
 import java.awt.*;
 
 public class Button {
+
     private int x;
     private int y;
     private int width;
     private int height;
+
     private TileType tileType;
-
     private static Point[][] cord;
-
-
-    public static void main(String[] args) {
-        Button b = new Button(1, 45, 1, 1, TileType.BRICK);
-        showArray(b.getCord());
-    }
-
-    public static void showArray(Point [][] array){
-        for (int i = 0; i < array.length ; i++) {
-            for (int j = 0; j < array[i].length; j++) {
-                System.out.print(array[i][j]);
-            }
-            System.out.println();
-        }
-    }
 
     public Button(int x, int y, int width, int height, TileType type) {
         this.x = x;
@@ -36,6 +22,7 @@ public class Button {
         this.tileType = type;
         createCord();
     }
+
 
     private void createCord() {
 
@@ -60,4 +47,15 @@ public class Button {
         return cord;
     }
 
+    public TileType getTileType() {
+        return tileType;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 }
