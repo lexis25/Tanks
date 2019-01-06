@@ -58,7 +58,6 @@ public class Utils {
             }
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.super_cargo.game.level;
 
+import com.super_cargo.IO.Mouse;
 import com.super_cargo.game.Game;
 import com.super_cargo.graphics.TextureAtlas;
 import com.super_cargo.utils.Button;
@@ -24,7 +25,8 @@ public class EditorLevel {
     };
 
     private static int[][] field = new int[Level.TILES_IN_HEIGHT][Level.TILES_IN_WIDTH];
-    private Map<TileType,Tile> tiles;
+    private static boolean isClosed;
+    private Map<TileType, Tile> tiles;
     private static int level = 1;
     private static TileType tileType;
     private static Button brick;
@@ -72,18 +74,18 @@ public class EditorLevel {
     }
 
     private void buildUIEditor(TextureAtlas atlas) {
-         brick = new Button(1, 45, 1, 1, TileType.BRICK);
-         addButton(brick);
-         metal = new Button(1, 47, 1, 1, TileType.METAL);
-         addButton(metal);
-         water = new Button(3, 45, 1, 1, TileType.WATER);
-         addButton(water);
-         grass = new Button(3, 47, 1, 1, TileType.GRASS);
-         addButton(grass);
-         ice = new Button(5, 45, 1, 1, TileType.ICE);
-         addButton(ice);
-         empty = new Button(5, 47, 1, 1, TileType.EMPTY);
-         addButton(empty);
+        brick = new Button(1, 45, 1, 1, TileType.BRICK);
+        addButton(brick);
+        metal = new Button(1, 47, 1, 1, TileType.METAL);
+        addButton(metal);
+        water = new Button(3, 45, 1, 1, TileType.WATER);
+        addButton(water);
+        grass = new Button(3, 47, 1, 1, TileType.GRASS);
+        addButton(grass);
+        ice = new Button(5, 45, 1, 1, TileType.ICE);
+        addButton(ice);
+        empty = new Button(5, 47, 1, 1, TileType.EMPTY);
+        addButton(empty);
     }
 
     private static void createRightDoc() {
@@ -94,25 +96,50 @@ public class EditorLevel {
         }
     }
 
-    private static void addButton(Button button){
+    private static void addButton(Button button) {
         for (int i = 0; i < button.getCord().length; i++) {
-            for (int j = 0; j < button.getCord()[i].length ; j++) {
+            for (int j = 0; j < button.getCord()[i].length; j++) {
                 field[button.getX() + i][button.getY() + j] = button.getTileType().numeric();
             }
         }
     }
 
-    public void render(Graphics2D g){
+    public void render(Graphics2D g) {
         for (int i = 0; i < field.length; i++) {
-            for (int j = 0; j < field[i].length ; j++) {
+            for (int j = 0; j < field[i].length; j++) {
                 Tile tile = tiles.get(TileType.fromNumeric(field[i][j]));
-                tile.render(g,j * Level.SCALED_TILE_SIZE, i * Level.SCALED_TILE_SIZE);
+                tile.render(g, j * Level.SCALED_TILE_SIZE, i * Level.SCALED_TILE_SIZE);
             }
         }
     }
 
-    public void update(){
+    public void update(Mouse mouse) {
+        int x = mouse.getX();
+        int y = mouse.getY();
 
+        if (x == brick.getX() && y == brick.getY()) {
+            tileType = brick.getTileType();
+        } else if (x == metal.getX() && y == metal.getY()) {
+            tileType = brick.getTileType();
+        } else if (x == water.getX() && y == water.getY()) {
+            tileType = water.getTileType();
+        } else if (x == grass.getX() && y == grass.getY()) {
+            tileType = grass.getTileType();
+        } else if (x == ice.getX() && y == ice.getY()) {
+            tileType = ice.getTileType();
+        } else if (x == empty.getX() && y == empty.getY()) {
+            tileType = empty.getTileType();
+        }
+
+        for (int i = 0; i < closed.length; i++) {
+            if (x == closed[i].getX() && y == closed[i].getY()) {
+                isClosed = true;
+            }
+        }
+
+        if (!isClosed && tileType != null) {
+            field[x][y] = tileType.numeric();
+        }
     }
 
 }
