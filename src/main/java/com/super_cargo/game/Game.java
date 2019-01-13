@@ -1,12 +1,14 @@
 package com.super_cargo.game;
 
 import com.super_cargo.IO.Input;
+import com.super_cargo.IO.MouseInput;
 import com.super_cargo.display.Display;
+import com.super_cargo.game.level.EditorLevel;
 import com.super_cargo.game.level.Level;
 import com.super_cargo.graphics.TextureAtlas;
 import com.super_cargo.utils.Time;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 
 public class Game implements Runnable {
 
@@ -30,6 +32,8 @@ public class Game implements Runnable {
     private TextureAtlas atlas;
     private Player player;
     private Level level;
+    private EditorLevel editorLevel;
+    private MouseInput mouseInput;
 
 
     public Game() {
@@ -37,10 +41,15 @@ public class Game implements Runnable {
         Display.create(WIDTH, HEIGHT, TITLE, CLEAR_COLOR, NUM_BUFFERS);
         graphics = Display.getGraphics();
         input = new Input();
+        mouseInput = new MouseInput();
         Display.addInputListener(input);
+        Display.addMouseListener(mouseInput);
         atlas = new TextureAtlas(ATLAS_FILE_NAME);
-        player = new Player(300, 300, 2, 3, atlas);
-        level = new Level(atlas);
+
+//        player = new Player(300, 300, 2, 3, atlas);
+//        level = new Level(atlas);
+        editorLevel = new EditorLevel(atlas);
+
     }
 
     public synchronized void start() {
@@ -72,15 +81,17 @@ public class Game implements Runnable {
     }
 
     private void update() {
-        player.update(input);
-        level.update();
+//        player.update(input);
+//        level.update();
+        editorLevel.update(mouseInput);
     }
 
     private void render() {
         Display.clear();
-        level.render(graphics);
-        player.render(graphics);
-        level.renderGrass(graphics);
+//        level.render(graphics);
+//        player.render(graphics);
+//        level.renderGrass(graphics);
+        editorLevel.render(graphics);
         Display.swapBuffers();
     }
 

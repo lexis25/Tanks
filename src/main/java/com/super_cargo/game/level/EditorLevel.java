@@ -1,6 +1,6 @@
 package com.super_cargo.game.level;
 
-import com.super_cargo.IO.Mouse;
+import com.super_cargo.IO.MouseInput;
 import com.super_cargo.game.Game;
 import com.super_cargo.graphics.TextureAtlas;
 import com.super_cargo.utils.Button;
@@ -62,7 +62,7 @@ public class EditorLevel {
 
     private static void resetLevelEmpty() {
         for (int i = 0; i < field.length; i++) {
-            for (int j = 0; j < field[i].length - Game.ACTION_WIDTH; j++) {
+            for (int j = 0; j < Game.ACTION_WIDTH / 16; j++) {
                 field[i][j] = 0;
             }
         }
@@ -113,23 +113,16 @@ public class EditorLevel {
         }
     }
 
-    public void update(Mouse mouse) {
-        int x = mouse.getX();
-        int y = mouse.getY();
+    public void update(MouseInput mouseInput) {
+        int x = mouseInput.getX();
+        int y = mouseInput.getY();
 
-        if (x == brick.getX() && y == brick.getY()) {
-            tileType = brick.getTileType();
-        } else if (x == metal.getX() && y == metal.getY()) {
-            tileType = brick.getTileType();
-        } else if (x == water.getX() && y == water.getY()) {
-            tileType = water.getTileType();
-        } else if (x == grass.getX() && y == grass.getY()) {
-            tileType = grass.getTileType();
-        } else if (x == ice.getX() && y == ice.getY()) {
-            tileType = ice.getTileType();
-        } else if (x == empty.getX() && y == empty.getY()) {
-            tileType = empty.getTileType();
-        }
+        getEqualsCord(brick, x, y);
+        getEqualsCord(metal, x, y);
+        getEqualsCord(water, x, y);
+        getEqualsCord(grass, x, y);
+        getEqualsCord(ice, x, y);
+        getEqualsCord(empty, x, y);
 
         for (int i = 0; i < closed.length; i++) {
             if (x == closed[i].getX() && y == closed[i].getY()) {
@@ -137,9 +130,18 @@ public class EditorLevel {
             }
         }
 
-        if (!isClosed && tileType != null) {
+        if (!isClosed && tileType != null && y <= 43) {
             field[x][y] = tileType.numeric();
         }
     }
 
+    private void getEqualsCord(Button button, int x, int y) {
+        for (int i = 0; i < button.getCord().length; i++) {
+            for (int j = 0; j < button.getCord()[i].length; j++) {
+                if (button.getCord()[i][j].equals(new Point(x, y))) {
+                    tileType = button.getTileType();
+                }
+            }
+        }
+    }
 }

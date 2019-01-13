@@ -1,6 +1,7 @@
 package com.super_cargo.display;
 
 import com.super_cargo.IO.Input;
+import com.super_cargo.IO.MouseInput;
 
 import javax.swing.*;
 import java.awt.*;
@@ -80,5 +81,9 @@ public abstract class Display {
 
     public static void addInputListener(Input inputListener){
         window.add(inputListener);
+    }
+
+    public static void addMouseListener(MouseInput mouseInputListener){
+        content.addMouseListener(mouseInputListener);
     }
 }
