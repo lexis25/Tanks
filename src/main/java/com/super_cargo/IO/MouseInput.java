@@ -9,24 +9,33 @@ public class MouseInput extends MouseAdapter {
     private int x;
     private int y;
 
+
+    private boolean isPressed;
+
     public MouseInput() {
 
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        System.out.println("mouse was pressed extends adapter");
+        isPressed = true;
         x = e.getX();
         y = e.getY();
     }
 
-    public int getX() {
-        this.x = x / Level.TILE_SCALE * Level.TILE_IN_GAME_SCALE;
-        return x;
+    public int get_X() {
+        return x /= Level.TILE_SCALE * Level.TILE_IN_GAME_SCALE;
     }
 
-    public int getY() {
-        this.y = y / Level.TILE_SCALE * Level.TILE_IN_GAME_SCALE;
-        return y;
+    public int get_Y() {
+        return y /= Level.TILE_SCALE * Level.TILE_IN_GAME_SCALE;
+    }
+
+    public boolean isPressed() {
+        return isPressed;
+    }
+
+    public void setPressed(boolean pressed) {
+        isPressed = pressed;
     }
 }

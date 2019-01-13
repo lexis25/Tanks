@@ -12,7 +12,7 @@ public class Button {
     private int height;
 
     private TileType tileType;
-    private static Point[][] cord;
+    private Point[][] cord;
 
     public Button(int x, int y, int width, int height, TileType type) {
         this.x = x;

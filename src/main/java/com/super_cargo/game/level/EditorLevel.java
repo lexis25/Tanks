@@ -35,6 +35,7 @@ public class EditorLevel {
     private static Button grass;
     private static Button ice;
     private static Button empty;
+    private static Button buttons[];
 
     public EditorLevel(TextureAtlas atlas) {
 
@@ -74,17 +75,20 @@ public class EditorLevel {
     }
 
     private void buildUIEditor(TextureAtlas atlas) {
-        brick = new Button(1, 45, 1, 1, TileType.BRICK);
+        buttons = new Button[]{
+                brick = new Button(1, 45, 1, 1, TileType.BRICK),
+                metal = new Button(1, 47, 1, 1, TileType.METAL),
+                water = new Button(3, 45, 1, 1, TileType.WATER),
+                grass = new Button(3, 47, 1, 1, TileType.GRASS),
+                ice = new Button(5, 45, 1, 1, TileType.ICE),
+                empty = new Button(5, 47, 1, 1, TileType.EMPTY)
+        };
+
         addButton(brick);
-        metal = new Button(1, 47, 1, 1, TileType.METAL);
         addButton(metal);
-        water = new Button(3, 45, 1, 1, TileType.WATER);
         addButton(water);
-        grass = new Button(3, 47, 1, 1, TileType.GRASS);
         addButton(grass);
-        ice = new Button(5, 45, 1, 1, TileType.ICE);
         addButton(ice);
-        empty = new Button(5, 47, 1, 1, TileType.EMPTY);
         addButton(empty);
     }
 
@@ -114,34 +118,45 @@ public class EditorLevel {
     }
 
     public void update(MouseInput mouseInput) {
-        int x = mouseInput.getX();
-        int y = mouseInput.getY();
+        int y = mouseInput.get_X();
+        int x = mouseInput.get_Y();
 
-        getEqualsCord(brick, x, y);
-        getEqualsCord(metal, x, y);
-        getEqualsCord(water, x, y);
-        getEqualsCord(grass, x, y);
-        getEqualsCord(ice, x, y);
-        getEqualsCord(empty, x, y);
+        if (y >= 43) {
+            for (int i = 0; i < buttons.length; i++) {
+                if (getEqualsCord(buttons[i], x, y)) {
+                    break;
+                }
+            }
+        }
 
         for (int i = 0; i < closed.length; i++) {
             if (x == closed[i].getX() && y == closed[i].getY()) {
                 isClosed = true;
+                break;
+            }else{
+                isClosed = false;
             }
         }
 
         if (!isClosed && tileType != null && y <= 43) {
             field[x][y] = tileType.numeric();
         }
+
+        mouseInput.setPressed(false);
     }
 
-    private void getEqualsCord(Button button, int x, int y) {
+    private boolean getEqualsCord(Button button, int x, int y) {
+        boolean count = false;
         for (int i = 0; i < button.getCord().length; i++) {
             for (int j = 0; j < button.getCord()[i].length; j++) {
                 if (button.getCord()[i][j].equals(new Point(x, y))) {
                     tileType = button.getTileType();
+                    System.out.println(tileType);
+                    count = true;
+                    break;
                 }
             }
         }
+        return count;
     }
 }
