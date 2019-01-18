@@ -23,10 +23,30 @@ public class Button {
         createCord();
     }
 
+    public Button(int x, int y, TileType type){
+        this.x = x;
+        this.y = y;
+        this.tileType = type;
+        cord = new Point[1][1];
+        cord[0][0] = new Point(x,y);
+    }
 
     private void createCord() {
 
-        cord = new Point[width + height][width + height];
+        int tempLengthX = 0;
+        int tempLengthY = 0;
+        if(width == height){
+            tempLengthX = width + height;
+            tempLengthY = height + height;
+        }else if(width > height){
+            tempLengthX = width + height;
+            tempLengthY = ++height;
+        }else if(width < height){
+            tempLengthY = width + height;
+            tempLengthX = ++width;
+        }
+
+        cord = new Point[tempLengthX][tempLengthY];
         int tempY = y;
         int tempX = x;
         for (int i = 0; i < cord.length; i++) {
@@ -44,6 +64,7 @@ public class Button {
     }
 
     public Point[][] getCord() {
+
         return cord;
     }
 

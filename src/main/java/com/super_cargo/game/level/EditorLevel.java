@@ -24,18 +24,24 @@ public class EditorLevel {
             new Point(36, 25), new Point(36, 26), new Point(37, 25), new Point(37, 26),// player 2
     };
 
+    private static final Button buttons[] = {
+            new Button(1, 45, 1, 1, TileType.BRICK),
+            new Button(1, 47, 1, 1, TileType.METAL),
+            new Button(3, 45, 1, 1, TileType.WATER),
+            new Button(3, 47, 1, 1, TileType.GRASS),
+            new Button(5, 45, 1, 1, TileType.ICE),
+            new Button(5, 47, 1, 1, TileType.EMPTY),
+            new Button(34, 45, TileType.S),
+            new Button(34, 46, TileType.A),
+            new Button(34, 47, TileType.V),
+            new Button(34, 48, TileType.E)
+    };
+
     private static int[][] field = new int[Level.TILES_IN_HEIGHT][Level.TILES_IN_WIDTH];
     private static boolean isClosed;
     private Map<TileType, Tile> tiles;
     private static int level = 1;
     private static TileType tileType;
-    private static Button brick;
-    private static Button metal;
-    private static Button water;
-    private static Button grass;
-    private static Button ice;
-    private static Button empty;
-    private static Button buttons[];
 
     public EditorLevel(TextureAtlas atlas) {
 
@@ -55,9 +61,21 @@ public class EditorLevel {
                 Level.TILE_IN_GAME_SCALE, TileType.EMPTY));
         tiles.put(TileType.BACKGROUND_RIGHT_MENU_DOC, new Tile(atlas.cut(46 * Level.TILE_SCALE, 0 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
                 Level.TILE_IN_GAME_SCALE, TileType.BACKGROUND_RIGHT_MENU_DOC));
+        tiles.put(TileType.S, new Tile(atlas.cut(39 * Level.TILE_SCALE, 22 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
+                Level.TILE_IN_GAME_SCALE, TileType.S));
+        tiles.put(TileType.A, new Tile(atlas.cut(37 * Level.TILE_SCALE, 22 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
+                Level.TILE_IN_GAME_SCALE, TileType.A));
+        tiles.put(TileType.V, new Tile(atlas.cut(37 * Level.TILE_SCALE, 24 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
+                Level.TILE_IN_GAME_SCALE, TileType.A));
+        tiles.put(TileType.E, new Tile(atlas.cut(40 * Level.TILE_SCALE, 22 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
+                Level.TILE_IN_GAME_SCALE, TileType.E));
+        tiles.put(TileType.R, new Tile(atlas.cut(39 * Level.TILE_SCALE, 24 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
+                Level.TILE_IN_GAME_SCALE, TileType.R));
+        tiles.put(TileType.O, new Tile(atlas.cut(36 * Level.TILE_SCALE, 24 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
+                Level.TILE_IN_GAME_SCALE, TileType.O));
 
         createRightDoc();
-        buildUIEditor(atlas);
+        buildUIEditor();
     }
 
 
@@ -70,32 +88,24 @@ public class EditorLevel {
     }
 
     private static void onSaveLevelFile() {
+        createRightDoc();
         Utils.writeLevel("res/level_" + level + ".lvl", field);
         level++;
+        buildUIEditor();
     }
 
-    private void buildUIEditor(TextureAtlas atlas) {
-        buttons = new Button[]{
-                brick = new Button(1, 45, 1, 1, TileType.BRICK),
-                metal = new Button(1, 47, 1, 1, TileType.METAL),
-                water = new Button(3, 45, 1, 1, TileType.WATER),
-                grass = new Button(3, 47, 1, 1, TileType.GRASS),
-                ice = new Button(5, 45, 1, 1, TileType.ICE),
-                empty = new Button(5, 47, 1, 1, TileType.EMPTY)
-        };
+    private static void buildUIEditor() {
 
-        addButton(brick);
-        addButton(metal);
-        addButton(water);
-        addButton(grass);
-        addButton(ice);
-        addButton(empty);
+        for (int i = 0; i < buttons.length; i++) {
+            addButton(buttons[i]);
+        }
+
     }
 
     private static void createRightDoc() {
         for (int i = 0; i < field.length; i++) {
             for (int j = 44; j < field[i].length; j++) {
-                field[i][j] = TileType.fromNumeric(6).numeric();
+                field[i][j] = TileType.BACKGROUND_RIGHT_MENU_DOC.numeric();
             }
         }
     }
@@ -133,27 +143,32 @@ public class EditorLevel {
             if (x == closed[i].getX() && y == closed[i].getY()) {
                 isClosed = true;
                 break;
-            }else{
+            } else {
                 isClosed = false;
             }
         }
 
-        if (!isClosed && tileType != null && y <= 43) {
+        if (!isClosed && tileType != null && y <= 43 && x < 34) {
             field[x][y] = tileType.numeric();
         }
 
         mouseInput.setPressed(false);
     }
 
-    private boolean getEqualsCord(Button button, int x, int y) {
+    private boolean getEqualsCord(Button button, int x, int y) {//bug with save
         boolean count = false;
         for (int i = 0; i < button.getCord().length; i++) {
             for (int j = 0; j < button.getCord()[i].length; j++) {
-                if (button.getCord()[i][j].equals(new Point(x, y))) {
+                if (button.getCord()[i][j].equals(new Point(x, y)) && button.getTileType().numeric() <= 5) {
                     tileType = button.getTileType();
-                    System.out.println(tileType);
                     count = true;
                     break;
+                } else if (button.getCord()[i][j].x >= 34 || button.getCord()[i][j].x <= 35) {
+                    if (button.getCord()[i][j].y >= 45 || button.getCord()[i][j].y <= 48) {
+                        count = true;
+                        onSaveLevelFile();
+                        break;
+                    }
                 }
             }
         }
