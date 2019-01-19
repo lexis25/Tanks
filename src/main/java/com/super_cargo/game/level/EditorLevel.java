@@ -7,7 +7,6 @@ import com.super_cargo.utils.Button;
 import com.super_cargo.utils.Utils;
 
 import java.awt.*;
-import java.util.HashMap;
 import java.util.Map;
 
 public class EditorLevel {
@@ -39,41 +38,12 @@ public class EditorLevel {
 
     private static int[][] field = new int[Level.TILES_IN_HEIGHT][Level.TILES_IN_WIDTH];
     private static boolean isClosed;
-    private Map<TileType, Tile> tiles;
+    private Map<TileType,Tile> tiles;
     private static int level = 1;
     private static TileType tileType;
 
     public EditorLevel(TextureAtlas atlas) {
-
-        tiles = new HashMap<TileType, Tile>();
-
-        tiles.put(TileType.BRICK, new Tile(atlas.cut(32 * Level.TILE_SCALE, 0 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
-                Level.TILE_IN_GAME_SCALE, TileType.BRICK));
-        tiles.put(TileType.METAL, new Tile(atlas.cut(32 * Level.TILE_SCALE, 2 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
-                Level.TILE_IN_GAME_SCALE, TileType.METAL));
-        tiles.put(TileType.WATER, new Tile(atlas.cut(32 * Level.TILE_SCALE, 4 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
-                Level.TILE_IN_GAME_SCALE, TileType.WATER));
-        tiles.put(TileType.GRASS, new Tile(atlas.cut(34 * Level.TILE_SCALE, 4 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
-                Level.TILE_IN_GAME_SCALE, TileType.GRASS));
-        tiles.put(TileType.ICE, new Tile(atlas.cut(36 * Level.TILE_SCALE, 4 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
-                Level.TILE_IN_GAME_SCALE, TileType.ICE));
-        tiles.put(TileType.EMPTY, new Tile(atlas.cut(36 * Level.TILE_SCALE, 6 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
-                Level.TILE_IN_GAME_SCALE, TileType.EMPTY));
-        tiles.put(TileType.BACKGROUND_RIGHT_MENU_DOC, new Tile(atlas.cut(46 * Level.TILE_SCALE, 0 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
-                Level.TILE_IN_GAME_SCALE, TileType.BACKGROUND_RIGHT_MENU_DOC));
-        tiles.put(TileType.S, new Tile(atlas.cut(39 * Level.TILE_SCALE, 22 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
-                Level.TILE_IN_GAME_SCALE, TileType.S));
-        tiles.put(TileType.A, new Tile(atlas.cut(37 * Level.TILE_SCALE, 22 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
-                Level.TILE_IN_GAME_SCALE, TileType.A));
-        tiles.put(TileType.V, new Tile(atlas.cut(37 * Level.TILE_SCALE, 24 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
-                Level.TILE_IN_GAME_SCALE, TileType.A));
-        tiles.put(TileType.E, new Tile(atlas.cut(40 * Level.TILE_SCALE, 22 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
-                Level.TILE_IN_GAME_SCALE, TileType.E));
-        tiles.put(TileType.R, new Tile(atlas.cut(39 * Level.TILE_SCALE, 24 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
-                Level.TILE_IN_GAME_SCALE, TileType.R));
-        tiles.put(TileType.O, new Tile(atlas.cut(36 * Level.TILE_SCALE, 24 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
-                Level.TILE_IN_GAME_SCALE, TileType.O));
-
+        tiles = new TileMapInit(atlas).getMAP();
         createRightDoc();
         buildUIEditor();
     }
@@ -163,12 +133,6 @@ public class EditorLevel {
                     tileType = button.getTileType();
                     count = true;
                     break;
-                } else if (button.getCord()[i][j].x >= 34 || button.getCord()[i][j].x <= 35) {
-                    if (button.getCord()[i][j].y >= 45 || button.getCord()[i][j].y <= 48) {
-                        count = true;
-                        onSaveLevelFile();
-                        break;
-                    }
                 }
             }
         }

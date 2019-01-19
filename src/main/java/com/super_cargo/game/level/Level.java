@@ -6,7 +6,6 @@ import com.super_cargo.utils.Utils;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,22 +25,7 @@ public class Level {
 
 
     public Level(TextureAtlas atlas) {
-        tiles = new HashMap<TileType, Tile>();
-
-        tiles.put(TileType.BRICK, new Tile(atlas.cut(32 * TILE_SCALE, 0 * TILE_SCALE, TILE_SCALE, TILE_SCALE),
-                TILE_IN_GAME_SCALE, TileType.BRICK));
-        tiles.put(TileType.METAL, new Tile(atlas.cut(32 * TILE_SCALE, 2 * TILE_SCALE, TILE_SCALE, TILE_SCALE),
-                TILE_IN_GAME_SCALE, TileType.METAL));
-        tiles.put(TileType.WATER, new Tile(atlas.cut(32 * TILE_SCALE, 4 * TILE_SCALE, TILE_SCALE, TILE_SCALE),
-                TILE_IN_GAME_SCALE, TileType.WATER));
-        tiles.put(TileType.GRASS, new Tile(atlas.cut(34 * TILE_SCALE, 4 * TILE_SCALE, TILE_SCALE, TILE_SCALE),
-                TILE_IN_GAME_SCALE, TileType.GRASS));
-        tiles.put(TileType.ICE, new Tile(atlas.cut(36 * TILE_SCALE, 4 * TILE_SCALE, TILE_SCALE, TILE_SCALE),
-                TILE_IN_GAME_SCALE, TileType.ICE));
-        tiles.put(TileType.EMPTY, new Tile(atlas.cut(36 * TILE_SCALE, 6 * TILE_SCALE, TILE_SCALE, TILE_SCALE),
-                TILE_IN_GAME_SCALE, TileType.EMPTY));
-        tiles.put(TileType.BACKGROUND_RIGHT_MENU_DOC, new Tile(atlas.cut(46 * TILE_SCALE, 0 * TILE_SCALE, TILE_SCALE, TILE_SCALE),
-                TILE_IN_GAME_SCALE, TileType.BACKGROUND_RIGHT_MENU_DOC));
+        tiles = new TileMapInit(atlas).getMAP();
 
         tileMap = Utils.levelParser("res/level.lvl");
         grassCords = new ArrayList<Point>();
