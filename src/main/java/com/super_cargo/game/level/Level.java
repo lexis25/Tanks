@@ -53,7 +53,6 @@ public class Level {
                 }
             }
         }
-
     }
 
     public void renderGrass(Graphics2D g) {

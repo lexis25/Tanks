@@ -83,9 +83,9 @@ public class Game implements Runnable {
     private void update() {
 //        player.update(input);
 //        level.update();
-        if(mouseInput.isPressed()) {
-            editorLevel.update(mouseInput);
-        }
+//        if(mouseInput.isPressed()) {
+//            editorLevel.update(mouseInput);
+//        }
     }
 
     private void render() {
