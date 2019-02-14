@@ -11,8 +11,6 @@ import java.util.Map;
 
 public class EditorLevel {
 
-
-
     private static final Point[] closed = {
             new Point(0, 0), new Point(0, 1), new Point(1, 0), new Point(1, 1),
             new Point(0, 21), new Point(0, 22), new Point(1, 21), new Point(1, 22),
@@ -50,7 +48,7 @@ public class EditorLevel {
     private static void resetLevelEmpty() {
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < Game.ACTION_WIDTH / 16; j++) {
-                field[i][j] = 0;
+                field[i][j] = TileType.EMPTY.numeric();
             }
         }
     }
