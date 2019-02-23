@@ -9,19 +9,19 @@ public class TileMapInit {
 
     private static Map<TileType, Tile> MAP = new HashMap<TileType, Tile>();
 
-    public TileMapInit(TextureAtlas atlas) {
+    public TileMapInit(TextureAtlas atlas, int tileScale) {
 
-        MAP.put(TileType.BRICK, new Tile(atlas.cut(32 * Level.TILE_SCALE, 0 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
+        MAP.put(TileType.BRICK, new Tile(atlas.cut(32 * Level.TILE_SCALE, 0, tileScale, tileScale),
                 Level.TILE_IN_GAME_SCALE, TileType.BRICK));
-        MAP.put(TileType.METAL, new Tile(atlas.cut(32 * Level.TILE_SCALE, 2 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
+        MAP.put(TileType.METAL, new Tile(atlas.cut(32 * Level.TILE_SCALE, 2 * Level.TILE_SCALE, tileScale, tileScale),
                 Level.TILE_IN_GAME_SCALE, TileType.METAL));
-        MAP.put(TileType.WATER, new Tile(atlas.cut(32 * Level.TILE_SCALE, 4 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
+        MAP.put(TileType.WATER, new Tile(atlas.cut(32 * Level.TILE_SCALE, 4 * Level.TILE_SCALE, tileScale, tileScale),
                 Level.TILE_IN_GAME_SCALE, TileType.WATER));
-        MAP.put(TileType.GRASS, new Tile(atlas.cut(34 * Level.TILE_SCALE, 4 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
+        MAP.put(TileType.GRASS, new Tile(atlas.cut(34 * Level.TILE_SCALE, 4 * Level.TILE_SCALE, tileScale, tileScale),
                 Level.TILE_IN_GAME_SCALE, TileType.GRASS));
-        MAP.put(TileType.ICE, new Tile(atlas.cut(36 * Level.TILE_SCALE, 4 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
+        MAP.put(TileType.ICE, new Tile(atlas.cut(36 * Level.TILE_SCALE, 4 * Level.TILE_SCALE, tileScale, tileScale),
                 Level.TILE_IN_GAME_SCALE, TileType.ICE));
-        MAP.put(TileType.EMPTY, new Tile(atlas.cut(36 * Level.TILE_SCALE, 6 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE),
+        MAP.put(TileType.EMPTY, new Tile(atlas.cut(36 * Level.TILE_SCALE, 6 * Level.TILE_SCALE, tileScale, tileScale),
                 Level.TILE_IN_GAME_SCALE, TileType.EMPTY));
     }
 

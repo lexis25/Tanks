@@ -1,9 +1,7 @@
 package com.super_cargo.game.level;
 
-import com.super_cargo.IO.MouseInput;
 import com.super_cargo.game.Game;
 import com.super_cargo.graphics.TextureAtlas;
-import com.super_cargo.utils.Button;
 import com.super_cargo.utils.Utils;
 
 import java.awt.*;
@@ -30,7 +28,7 @@ public class EditorLevel {
     private static TileType tileType;
 
     public EditorLevel(TextureAtlas atlas) {
-        tiles = new TileMapInit(atlas).getMAP();
+        tiles = new TileMapInit(atlas,Level.TILE_SCALE).getMAP();
     }
 
     public static Point[] getClosed() {
@@ -67,7 +65,7 @@ public class EditorLevel {
         }
     }
 
-    public void update(MouseInput mouseInput, Button [] buttons) {
+    public void update() {
 
     }
 

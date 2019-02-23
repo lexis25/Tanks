@@ -14,6 +14,7 @@ public class Level {
 
 
     public static final int TILE_SCALE = 8;
+    public static final int TILE_SCALE_BIGBLOCK = TILE_SCALE * 2;
     public static final int TILE_IN_GAME_SCALE = 2;
     public static final int SCALED_TILE_SIZE = TILE_SCALE * TILE_IN_GAME_SCALE;
     public static final int TILES_IN_WIDTH = Game.WIDTH / SCALED_TILE_SIZE;
@@ -25,7 +26,7 @@ public class Level {
 
 
     public Level(TextureAtlas atlas) {
-        tiles = new TileMapInit(atlas).getMAP();
+        tiles = new TileMapInit(atlas, TILE_SCALE).getMAP();
 
         tileMap = Utils.levelParser("res/level.lvl");
         grassCords = new ArrayList<Point>();
