@@ -4,6 +4,7 @@ import com.super_cargo.IO.Input;
 import com.super_cargo.IO.MouseInput;
 import com.super_cargo.display.Display;
 import com.super_cargo.game.level.EditorLevel;
+import com.super_cargo.game.level.EditorLevelRightDoc;
 import com.super_cargo.game.level.Level;
 import com.super_cargo.game.level.LevelRightDoc;
 import com.super_cargo.graphics.TextureAtlas;
@@ -36,6 +37,7 @@ public class Game implements Runnable {
     private EditorLevel editorLevel;
     private MouseInput mouseInput;
     private LevelRightDoc rightDoc;
+    private EditorLevelRightDoc editorLevelRightDoc;
 
 
     public Game() {
@@ -47,11 +49,12 @@ public class Game implements Runnable {
         Display.addInputListener(input);
         Display.addMouseListener(mouseInput);
         atlas = new TextureAtlas(ATLAS_FILE_NAME);
+        editorLevelRightDoc = new EditorLevelRightDoc(atlas);
 
 //        player = new Player(300, 300, 2, 3, atlas);
 //        level = new Level(atlas);
-        editorLevel = new EditorLevel(atlas);
-        rightDoc = new LevelRightDoc(atlas);
+//        editorLevel = new EditorLevel(atlas);
+    //    rightDoc = new LevelRightDoc(atlas);
 
     }
 
@@ -96,8 +99,8 @@ public class Game implements Runnable {
 //        level.render(graphics);
 //        player.render(graphics);
 //        level.renderGrass(graphics);
-        editorLevel.render(graphics);
-        rightDoc.render(graphics);
+//        editorLevel.render(graphics);
+        editorLevelRightDoc.render(graphics);
         Display.swapBuffers();
     }
 

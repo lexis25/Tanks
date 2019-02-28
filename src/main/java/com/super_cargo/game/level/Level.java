@@ -26,7 +26,7 @@ public class Level {
 
 
     public Level(TextureAtlas atlas) {
-        tiles = new TileMapInit(atlas, TILE_SCALE).getMAP();
+        tiles = new TileMapInit(atlas).getMAP();
 
         tileMap = Utils.levelParser("res/level.lvl");
         grassCords = new ArrayList<Point>();

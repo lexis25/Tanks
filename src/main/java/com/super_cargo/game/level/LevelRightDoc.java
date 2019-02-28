@@ -13,44 +13,78 @@ public class LevelRightDoc {
     private static final int height = Game.HEIGHT;
 
     private static Stack<Icon> stackEnemies;
+    private static Stack<Icon> stackPlayer;
+
     private Tile enemy;
+    private Tile lifePlayerTitle;
+    private Tile playerQuantityLife;
+
     private static int shore;
+
+    private Icon playerTitle;
 
 
     public LevelRightDoc(TextureAtlas atlas) {
-        enemy = new Tile(atlas.cut(40 * Level.TILE_SCALE, 24 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE), Level.TILE_SCALE);
-        stackEnemies = new Icon(enemy, new Point(1,1), 16,2).getStack();
-        stackEnemies.get(stackEnemies.lastElement().point.x);
-    }
+        enemy = new Tile(atlas.cut(40 * Level.TILE_SCALE, 24 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE), Level.TILE_IN_GAME_SCALE);
+        Icon enemies = new Icon(enemy, new Point(2, 46), 8, 2, true);
+        stackEnemies = enemies.getStack();
 
+        lifePlayerTitle = new Tile(atlas.cut(47 * Level.TILE_SCALE, 17 * Level.TILE_SCALE, Level.TILE_SCALE_BIGBLOCK, Level.TILE_SCALE), Level.TILE_IN_GAME_SCALE);
+        playerTitle = new Icon(lifePlayerTitle, new Point(18, 46));
+
+        playerQuantityLife = new Tile(atlas.cut(47 * Level.TILE_SCALE, 18 * Level.TILE_SCALE, Level.TILE_SCALE, Level.TILE_SCALE), Level.TILE_IN_GAME_SCALE);
+        Icon playerQuantityOne = new Icon(playerQuantityLife, new Point(19, 46), 2, 2, false);
+        stackPlayer = playerQuantityOne.getStack();
+
+
+    }
 
     public void update() {
 
     }
 
     public void render(Graphics2D g) {
+        g.fillRect(y, x, width, height);
+        g.setColor(new Color(99, 99, 99));
 
+
+        for (int i = 0; i < stackEnemies.size(); i++) {
+            stackEnemies.get(i).tile.render(g, (int) (stackEnemies.get(i).point.getY() * Level.SCALED_TILE_SIZE),
+                    (int) (stackEnemies.get(i).point.getX() * Level.SCALED_TILE_SIZE));
+        }
+
+        for (int i = 0; i < stackPlayer.size(); i++) {
+            stackPlayer.get(i).tile.render(g, (int) (stackPlayer.get(i).point.getY() * Level.SCALED_TILE_SIZE),
+                    (int) (stackPlayer.get(i).point.getX() * Level.SCALED_TILE_SIZE));
+        }
+
+
+       // playerQuantityLife.render(g, 100, 100);
+        lifePlayerTitle.render(g, (int) playerTitle.point.getY() * Level.SCALED_TILE_SIZE,
+                (int) playerTitle.point.getX() * Level.SCALED_TILE_SIZE);
     }
 
     public class Icon {
 
         private Tile tile;
-        private Stack<Icon> stack;
+        private Stack<Icon> stack = new Stack<>();
         private Point point;
         private int pointCountX;
         private int pointCountY;
+        private boolean evenCardinal;
 
-        private Icon(Tile tile, Point point, int pointCountY, int pointCountX) {
-            pointCountY = pointCountY;
-            pointCountX = pointCountX;
-            point = point;
-            tile = tile;
+        private Icon(Tile tile, Point point, int pointCountY, int pointCountX, boolean evenCardinal) {
+            this.pointCountY = pointCountY;
+            this.pointCountX = pointCountX;
+            this.point = point;
+            this.tile = tile;
+            this.evenCardinal = evenCardinal;
             setStack();
         }
 
         private Icon(Tile tile, Point point) {
-            tile = tile;
-            point = point;
+            this.tile = tile;
+            this.point = point;
         }
 
         public void setStack() {
@@ -62,11 +96,17 @@ public class LevelRightDoc {
                     if (stack.isEmpty()) {
                         stack.add(new Icon(tile, point));
                     } else {
-                        stack.add(new Icon(tile, new Point((int) x, (int) (y += Level.TILE_SCALE))));
+                        stack.add(new Icon(tile, new Point((int) x, (int) (++y))));
                     }
                 }
-                x += Level.TILE_SCALE;
+                ++x;
+                y -= pointCountX;
             }
+
+            if (!evenCardinal) {
+                stack.remove(stack.lastElement());
+            }
+
         }
 
         public Stack<Icon> getStack() {

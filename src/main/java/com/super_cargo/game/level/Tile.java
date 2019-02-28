@@ -19,6 +19,10 @@ public class Tile {
         this.image = Utils.resize(image, image.getWidth() * scale, image.getHeight() * scale);
     }
 
+    protected Tile(BufferedImage image){
+        this.image = Utils.resize(image, image.getWidth(),image.getHeight());
+    }
+
     protected void render(Graphics2D g, int x, int y) {
         g.drawImage(image, x, y, null);
     }

@@ -28,7 +28,7 @@ public class EditorLevel {
     private static TileType tileType;
 
     public EditorLevel(TextureAtlas atlas) {
-        tiles = new TileMapInit(atlas,Level.TILE_SCALE).getMAP();
+        tiles = new TileMapInit(atlas).getMAP();
     }
 
     public static Point[] getClosed() {
