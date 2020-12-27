@@ -24,21 +24,17 @@ public class EditorLevel {
     };
 
     private static final Button buttons[] = {
-            new Button(1, 45, 1, 1, TileType.BRICK),
-            new Button(1, 47, 1, 1, TileType.METAL),
-            new Button(3, 45, 1, 1, TileType.WATER),
-            new Button(3, 47, 1, 1, TileType.GRASS),
-            new Button(5, 45, 1, 1, TileType.ICE),
-            new Button(5, 47, 1, 1, TileType.EMPTY),
-            new Button(34, 45, TileType.S),
-            new Button(34, 46, TileType.A),
-            new Button(34, 47, TileType.V),
-            new Button(34, 48, TileType.E)
+            new Button(1, 45, 1, TileType.BRICK),
+            new Button(1, 47, 1, TileType.METAL),
+            new Button(3, 45, 1, TileType.WATER),
+            new Button(3, 47, 1, TileType.GRASS),
+            new Button(5, 45, 1, TileType.ICE),
+            new Button(5, 47, 1, TileType.EMPTY),
     };
 
     private static int[][] field = new int[Level.TILES_IN_HEIGHT][Level.TILES_IN_WIDTH];
     private static boolean isClosed;
-    private Map<TileType,Tile> tiles;
+    private Map<TileType, Tile> tiles;
     private static int level = 1;
     private static TileType tileType;
 
@@ -73,11 +69,7 @@ public class EditorLevel {
     }
 
     private static void createRightDoc() {
-        for (int i = 0; i < field.length; i++) {
-            for (int j = 44; j < field[i].length; j++) {
-                field[i][j] = TileType.BACKGROUND_RIGHT_MENU_DOC.numeric();
-            }
-        }
+
     }
 
     private static void addButton(Button button) {

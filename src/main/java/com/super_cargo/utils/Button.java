@@ -2,6 +2,7 @@ package com.super_cargo.utils;
 
 import com.super_cargo.game.level.TileType;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class Button {
@@ -14,21 +15,43 @@ public class Button {
     private TileType tileType;
     private Point[][] cord;
 
-    public Button(int x, int y, int width, int height, TileType type) {
+    private static String PLAYER_1 = "PLAYER_1";
+    private static String PLAYER_2 = "PLAYER_2";
+    private static String CREDITS = "CREDITS";
+
+    public Button(int x, int y, int wh, TileType type) {
         this.x = x;
         this.y = y;
-        this.width = width;
-        this.height = height;
+        this.width = wh;
+        this.height = wh;
         this.tileType = type;
         createCord();
     }
 
-    public Button(int x, int y, TileType type){
-        this.x = x;
-        this.y = y;
-        this.tileType = type;
-        cord = new Point[1][1];
-        cord[0][0] = new Point(x,y);
+    public Button(String nameButton, TileType type){
+        cord = new Point[nameButton.length()][nameButton.length()];
+
+        if(nameButton.equalsIgnoreCase("save")){
+            for (int i = 0; i < nameButton.length(); i++) {
+
+            }
+        }else if(nameButton.equalsIgnoreCase("start")){
+
+        }else if(nameButton.equalsIgnoreCase("settings")){
+
+        }else{
+            try{
+
+            }catch (Exception e){
+
+            }
+        }
+
+    }
+
+    public Button(String nameButton){
+        JButton button = new JButton(nameButton);
+        
     }
 
     private void createCord() {
