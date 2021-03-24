@@ -45,10 +45,9 @@ public class Game implements Runnable {
         Display.addInputListener(input);
         Display.addMouseListener(mouseInput);
         atlas = new TextureAtlas(ATLAS_FILE_NAME);
-
-//        player = new Player(300, 300, 2, 3, atlas);
-//        level = new Level(atlas);
-        editorLevel = new EditorLevel(atlas);
+        player = new Player(300, 300, 2, 3, atlas);
+        level = new Level(atlas);
+        //editorLevel = new EditorLevel(atlas);
 
     }
 
@@ -81,19 +80,19 @@ public class Game implements Runnable {
     }
 
     private void update() {
-//        player.update(input);
-//        level.update();
-        if(mouseInput.isPressed()) {
+        player.update(input);
+        level.update();
+        if (mouseInput.isPressed()) {
             editorLevel.update(mouseInput);
         }
     }
 
     private void render() {
         Display.clear();
-//        level.render(graphics);
-//        player.render(graphics);
-//        level.renderGrass(graphics);
-        editorLevel.render(graphics);
+        level.render(graphics);
+        player.render(graphics);
+        level.renderGrass(graphics);
+//        editorLevel.render(graphics);
         Display.swapBuffers();
     }
 

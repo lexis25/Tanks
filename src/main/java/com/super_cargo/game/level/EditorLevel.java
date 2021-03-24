@@ -18,7 +18,7 @@ public class EditorLevel {
 
             new Point(36, 17), new Point(36, 18), new Point(37, 17), new Point(37, 18),// player 1
 
-            new Point(36, 21), new Point(36, 22), new Point(37, 21), new Point(37, 21),// flag
+            new Point(36, 21), new Point(36, 22), new Point(37, 21), new Point(37, 22),// flag
 
             new Point(36, 25), new Point(36, 26), new Point(37, 25), new Point(37, 26),// player 2
     };
@@ -89,9 +89,10 @@ public class EditorLevel {
         }
     }
 
-    public void update(MouseInput mouseInput) {
+    public void update(MouseInput mouseInput) {//привязка к координатам
         int y = mouseInput.get_X();
         int x = mouseInput.get_Y();
+        System.out.println(y + " - y" + x + " - x");
 
         if (y >= 43) {
             for (int i = 0; i < buttons.length; i++) {
@@ -110,14 +111,14 @@ public class EditorLevel {
             }
         }
 
-        if (!isClosed && tileType != null && y <= 43 && x < 34) {
+        if (!isClosed && tileType != null && y <= 43 ) {
             field[x][y] = tileType.numeric();
         }
 
         mouseInput.setPressed(false);
     }
 
-    private boolean getEqualsCord(Button button, int x, int y) {//bug with save
+    private boolean getEqualsCord(Button button, int x, int y) {
         boolean count = false;
         for (int i = 0; i < button.getCord().length; i++) {
             for (int j = 0; j < button.getCord()[i].length; j++) {

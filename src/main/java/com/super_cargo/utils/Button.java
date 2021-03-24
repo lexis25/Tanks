@@ -1,11 +1,13 @@
 package com.super_cargo.utils;
 
 import com.super_cargo.game.level.TileType;
+import com.super_cargo.graphics.Sprite;
+import com.super_cargo.graphics.TextureAtlas;
 
-import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 
-public class Button {
+public class Button{
 
     private int x;
     private int y;
@@ -15,11 +17,13 @@ public class Button {
     private TileType tileType;
     private Point[][] cord;
 
+    private HashMap <Point, Sprite> word = new HashMap<Point, Sprite>();
+
     private static String PLAYER_1 = "PLAYER_1";
     private static String PLAYER_2 = "PLAYER_2";
     private static String CREDITS = "CREDITS";
 
-    public Button(int x, int y, int wh, TileType type) {
+    public Button(int x, int y, int wh, TileType type) {// without number
         this.x = x;
         this.y = y;
         this.width = wh;
@@ -28,48 +32,17 @@ public class Button {
         createCord();
     }
 
-    public Button(String nameButton, TileType type){
-        cord = new Point[nameButton.length()][nameButton.length()];
+    public Button(int x, int y, String nameButton, TextureAtlas atlas) {
 
-        if(nameButton.equalsIgnoreCase("save")){
-            for (int i = 0; i < nameButton.length(); i++) {
-
-            }
-        }else if(nameButton.equalsIgnoreCase("start")){
-
-        }else if(nameButton.equalsIgnoreCase("settings")){
-
-        }else{
-            try{
-
-            }catch (Exception e){
-
-            }
-        }
+        this.x = x;
+        this.y = y;
 
     }
 
-    public Button(String nameButton){
-        JButton button = new JButton(nameButton);
-        
-    }
 
     private void createCord() {
+        cord = new Point[width + height][height + height];
 
-        int tempLengthX = 0;
-        int tempLengthY = 0;
-        if(width == height){
-            tempLengthX = width + height;
-            tempLengthY = height + height;
-        }else if(width > height){
-            tempLengthX = width + height;
-            tempLengthY = ++height;
-        }else if(width < height){
-            tempLengthY = width + height;
-            tempLengthX = ++width;
-        }
-
-        cord = new Point[tempLengthX][tempLengthY];
         int tempY = y;
         int tempX = x;
         for (int i = 0; i < cord.length; i++) {
@@ -81,13 +54,11 @@ public class Button {
             }
             y = tempY;
         }
-
         x = tempX;
         y = tempY;
     }
 
     public Point[][] getCord() {
-
         return cord;
     }
 
